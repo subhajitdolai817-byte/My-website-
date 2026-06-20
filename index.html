@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SUBHA — Furious Expert</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #07060b;
+    --bg-soft: #0d0b15;
+    --red: #ff2d4e;
+    --red-soft: rgba(255,45,78,0.16);
+    --blue: #2fd0ff;
+    --blue-soft: rgba(47,208,255,0.16);
+    --steel: #d7dbe2;
+    --text: #f2f2f5;
+    --muted: #8b8894;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    overflow-x: hidden;
+    min-height:100vh;
+  }
+
+  /* ambient dual-energy glow */
+  .glow-field{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 60% 50% at 10% 0%, var(--red-soft), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 90% 10%, var(--blue-soft), transparent 60%);
+  }
+
+  main{ position: relative; z-index: 1; }
+
+  .mono{
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height: 100svh;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding: 6rem 1.5rem 4rem;
+  }
+
+  .status{
+    display:inline-flex;
+    align-items:center;
+    gap:.5rem;
+    font-size:.7rem;
+    letter-spacing:.25em;
+    text-transform:uppercase;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  .status .dot{
+    width:7px; height:7px;
+    border-radius:50%;
+    background: var(--blue);
+    box-shadow: 0 0 8px 2px var(--blue);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes pulse{
+    0%,100%{ opacity:1; transform:scale(1); }
+    50%{ opacity:.4; transform:scale(.7); }
+  }
+
+  .frame{
+    position:relative;
+    width: min(280px, 70vw);
+    aspect-ratio: 941 / 1672;
+    clip-path: polygon(12% 0, 100% 0, 100% 88%, 88% 100%, 0 100%, 0 12%);
+    background: linear-gradient(160deg, var(--red), var(--blue));
+    padding: 3px;
+    animation: frame-pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes frame-pulse{
+    0%,100%{ filter: drop-shadow(0 0 18px rgba(255,45,78,.35)) drop-shadow(0 0 18px rgba(47,208,255,.25)); }
+    50%{ filter: drop-shadow(0 0 28px rgba(255,45,78,.55)) drop-shadow(0 0 28px rgba(47,208,255,.45)); }
+  }
+
+  .frame img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    display:block;
+    clip-path: polygon(12% 0, 100% 0, 100% 88%, 88% 100%, 0 100%, 0 12%);
+    background: var(--bg-soft);
+  }
+
+  .name{
+    font-family: 'Anton', sans-serif;
+    font-weight: 400;
+    font-size: clamp(3.2rem, 14vw, 6.5rem);
+    line-height: .95;
+    letter-spacing: .02em;
+    margin-top: 2.2rem;
+    background: linear-gradient(135deg, #fff 0%, var(--steel) 40%, #fff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 30px rgba(255,255,255,.08);
+  }
+
+  .badge{
+    margin-top: 1.1rem;
+    display:inline-block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:.78rem;
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    padding: .65rem 1.3rem;
+    clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%, 0 30%);
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--bg), var(--bg)) padding-box,
+      linear-gradient(120deg, var(--red), var(--blue)) border-box;
+    color: var(--steel);
+  }
+
+  /* ---------- DIVIDER ---------- */
+  .crack{
+    position: relative;
+    width: 100%;
+    height: 56px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .crack svg{ width: min(420px, 90%); height: 100%; }
+  .crack path{
+    fill:none;
+    stroke-width: 2;
+    animation: flicker 2.6s ease-in-out infinite;
+  }
+  .crack .left{ stroke: var(--red); filter: drop-shadow(0 0 6px var(--red)); }
+  .crack .right{ stroke: var(--blue); filter: drop-shadow(0 0 6px var(--blue)); }
+
+  @keyframes flicker{
+    0%,19%,21%,54%,56%,100%{ opacity:1; }
+    20%,55%{ opacity:.35; }
+  }
+
+  /* ---------- BIO ---------- */
+  .bio-section{
+    padding: 1rem 1.25rem 6rem;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  .bio-label{
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:.72rem;
+    letter-spacing:.35em;
+    text-transform:uppercase;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+  }
+
+  .bio-grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  @media (min-width: 760px){
+    .bio-grid{ grid-template-columns: 1fr 1fr; align-items: stretch; }
+    .crack{ display:none; }
+    .bio-grid{ position: relative; }
+    .bio-grid::before{
+      content:'';
+      position:absolute;
+      top:0; bottom:0; left:50%;
+      width:2px;
+      transform: translateX(-50%);
+      background: linear-gradient(to bottom, var(--red), var(--blue));
+      filter: drop-shadow(0 0 6px rgba(255,45,78,.4)) drop-shadow(0 0 6px rgba(47,208,255,.4));
+      animation: flicker 2.6s ease-in-out infinite;
+    }
+  }
+
+  .card{
+    padding: 2.6rem 2.2rem;
+    position:relative;
+    transition: transform .35s ease, background .35s ease;
+  }
+
+  .card.red{
+    clip-path: polygon(0 0, 100% 0, 100% 92%, 90% 100%, 0 100%);
+    border-top: 2px solid var(--red);
+  }
+  .card.blue{
+    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 8%);
+    border-top: 2px solid var(--blue);
+  }
+
+  @media (min-width:760px){
+    .card.red{ padding-right: 3.2rem; }
+    .card.blue{ padding-left: 3.2rem; }
+  }
+
+  .card:hover{ transform: translateY(-4px); }
+  .card.red:hover{ background: rgba(255,45,78,.06); }
+  .card.blue:hover{ background: rgba(47,208,255,.06); }
+
+  .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.7rem;
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    margin-bottom: 1.2rem;
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+  }
+  .tag::before{ content:'//'; opacity:.6; }
+  .card.red .tag{ color: var(--red); }
+  .card.blue .tag{ color: var(--blue); }
+
+  .quote{
+    font-size: 1.18rem;
+    line-height: 1.65;
+    font-weight: 600;
+    letter-spacing: .01em;
+    color: var(--text);
+  }
+  .card.red .quote{ text-shadow: 0 0 18px rgba(255,45,78,.18); }
+  .card.blue .quote{ text-shadow: 0 0 18px rgba(47,208,255,.18); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    text-align:center;
+    padding: 3rem 1.5rem 4rem;
+    font-family:'JetBrains Mono', monospace;
+    font-size:.72rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color: var(--muted);
+  }
+  footer span{ color: var(--steel); }
+
+  /* reveal-on-load */
+  .reveal{
+    opacity:0;
+    transform: translateY(16px);
+    animation: rise .8s ease forwards;
+  }
+  .r1{ animation-delay:.05s; }
+  .r2{ animation-delay:.25s; }
+  .r3{ animation-delay:.45s; }
+  .r4{ animation-delay:.6s; }
+
+  @keyframes rise{
+    to{ opacity:1; transform:none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+  }
+</style>
+</head>
+<body>
+
+<div class="glow-field"></div>
+
+<main>
+  <section class="hero">
+    <div class="status reveal r1"><span class="dot"></span>Status · Online</div>
+
+    <div class="frame reveal r2">
+      <img src="subha.png" alt="Subha — Furious Expert">
+    </div>
+
+    <h1 class="name reveal r3">SUBHA</h1>
+    <span class="badge reveal r4">Furious Expert</span>
+  </section>
+
+  <div class="crack" aria-hidden="true">
+    <svg viewBox="0 0 200 56" preserveAspectRatio="none">
+      <path class="left" d="M0 28 L40 28 L55 8 L70 44 L100 28" />
+      <path class="right" d="M100 28 L130 44 L145 8 L160 28 L200 28" />
+    </svg>
+  </div>
+
+  <section class="bio-section">
+    <p class="bio-label">[ Bio ]</p>
+    <div class="bio-grid">
+      <div class="card red">
+        <div class="tag">Attitude</div>
+        <p class="quote">🤘⚡ AKELA HUN KOI GAM NHI JAHAN IJJAT NHI YW HAM NHI 🥷🤘🔥</p>
+      </div>
+      <div class="card blue">
+        <div class="tag">Heart</div>
+        <p class="quote">MY LIFE MY PAPA AND MOM ALWAYS HAPPY 😊 ME HAPPY 😊 😙 💗</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>Subha</span> — Furious Expert · 2026
+</footer>
+
+</body>
+</html>
